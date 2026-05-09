@@ -16,25 +16,47 @@
     <table>
         <tbody>
             @foreach ($subjects as $subject)
+            <tr>
+                
             <form action="/subjects/update/{{ $subject->id }}" method="post">
         @csrf
+        <td>
         <div>
             <input type="text" name="property1" value="{{ $subject->content }}">
         </div>
-        <div>
-            <><textarea name="property2" rows="3">{{ $subject->name }}</textarea>
-        </div>
+        </td>
+        <td>  
         <button type="submit">RENEWAL!</button>
+        </td>
     </form>
+
+
     <form action="/subjects/break/{{ $subject->id }}" method="post">
         @csrf
+        <td>
         <button type="submit">BREAKING DOWN!!</button>
+        </td>
     </form>
-    <div>
-        @foreach($subject->contents as $content)
-        <p>{{ $content->content }}</p>
+    
+    <td>
+        @foreach($subject->followings as $following)
+        <form action="/subjects/update/{{ $following->id }}" method="post">
+        @csrf
+        <td>
+        <input type="text" name="property1" value="{{ $following->content }}">
+        </td>
+        </form>
         @endforeach
-    </div>
+        @foreach ($subject->followers as $follower)
+        <form action="/subjects/update/{{ $follower->id }}" method="post">
+            @csrf
+            <td>
+            <input type="text" name="property1" value="{{ $follower->content }}">
+            </td>
+        </form>
+        @endforeach
+    </td>    
+    </tr>
             @endforeach
         </tbody>
     </table>
@@ -43,9 +65,7 @@
         <div>
             <input type="text" name="property1">
         </div>
-        <div>
-            <><textarea name="property2" rows="3"></textarea>
-        </div>
+        
         <button type="submit">ADD!</button>
     </form>
 </body>

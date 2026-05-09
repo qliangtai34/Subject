@@ -2,32 +2,51 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Post;
+use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
-        $query = Post::with('tags');
-
-        // タグで絞り込み
-        if ($request->has('tag')) {
-            $tagName = $request->tag;
-            $query->whereHas('tags', function ($q) use ($tagName) {
-                $q->where('name', $tagName);
-            });
-        }
-
-        $posts = $query->latest()->get();
-
+        $posts = Post::latest()->get();
         return view('posts.index', ['posts' => $posts]);
     }
 
-    public function show($id)
+    public function create()
     {
-        $post = Post::with(['comments', 'tags'])->findOrFail($id);
+        return view('posts.create');
+    }
 
-        return view('posts.show', ['post' => $post]);
+    public function store(Request $request)
+    {
+        Post::create([
+            'title' => $request->title,
+            'content' => $request->content,
+            'published_at' => now(),
+        ]);
+        return redirect('/posts');
+    }
+
+    public function edit($id)
+    {
+        $post = Post::findOrFail($id);
+        return view('posts.edit', ['post' => $post]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $post = Post::findOrFail($id);
+        $post->update([
+            'title' => $request->title,
+            'content' => $request->content,
+        ]);
+        return redirect('/posts');
+    }
+
+    public function delete($id)
+    {
+        Post::findOrFail($id)->delete();
+        return redirect('/posts');
     }
 }

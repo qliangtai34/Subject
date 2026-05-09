@@ -22,18 +22,16 @@ class SubjectController extends Controller
     public function create(Request $add)
     {
         Subject::create([
-            'name' => $add->input('property1'),
-            'content' => $add->input('property2'),
+            'content' => $add->input('property1'),
             'published_at' =>  now(),
         ]);
         return redirect('/subjects');
     }
 
-    public function update(Request $change, $id)
+    public function renewal(Request $change, $id)
     {
         Subject::findOrFail($id)->update([
-            'name' => $change->input('property1'),
-            'content' => $change->input('property2'),
+            'content' => $change->input('property1'),
         ]);
         return redirect('/subjects');
     }

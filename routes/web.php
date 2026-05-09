@@ -30,5 +30,5 @@ Route::get('/products', [ProductController::class, 'index']);
 Route::get('/subjects', [SubjectController::class, 'index']);
 Route::get('/subjects/search', [SubjectController::class, 'search']);
 Route::post('/subjects', [SubjectController::class, 'create']);
-Route::post('/subjects/update/{id}',[SubjectController::class, 'update']);
+Route::post('/subjects/update/{id}',[SubjectController::class, 'renewal']);
 Route::post('/subjects/break/{id}',[SubjectController::class, 'break']);

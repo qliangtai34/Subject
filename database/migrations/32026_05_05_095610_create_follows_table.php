@@ -11,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
 {
-    Schema::create('subjects', function (Blueprint $table) {
+    Schema::create('follows', function (Blueprint $table) {
         $table->id();
-        $table->text('content');
-        $table->dateTime('published_at')->nullable();
-        $table->timestamps();
+        $table->foreignId('following_id')->constrained('subjects')->onDelete('cascade');
+        $table->foreignId('follower_id')->constrained('subjects')->onDelete('cascade');
     });
 }
 
@@ -25,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('subjects');
+        Schema::dropIfExists('content_subject');
     }
 };

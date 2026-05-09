@@ -21,4 +21,26 @@ class Subject extends Model
     {
         return $this->belongsToMany(Content::class);
     }
+
+    // 自分をフォローしている人
+    public function followers()
+    {
+        return $this->belongsToMany(
+            Subject::class,
+            'follows',
+            'following_id',
+            'follower_id'
+        );
+    }
+
+    // 自分がフォローしている人
+    public function followings()
+    {
+        return $this->belongsToMany(
+            Subject::class,
+            'follows',
+            'follower_id',
+            'following_id'
+        );
+    }
 }
