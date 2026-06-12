@@ -28,17 +28,17 @@ class SubjectController extends Controller
         return redirect('/subjects');
     }
 
-    public function renewal(Request $change, $id)
+    public function renewal(Request $change, $ad)
     {
-        Subject::findOrFail($id)->update([
+        Subject::findOrFail($ad)->update([
             'content' => $change->input('property1'),
         ]);
         return redirect('/subjects');
     }
 
-    public function break($id)
+    public function break($hd)
     {
-        Subject::findOrFail($id)->delete();
+        Subject::findOrFail($hd)->delete();
         return redirect('/subjects');
     }
 }
